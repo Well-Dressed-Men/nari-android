@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.Nari" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Nari.Splash" parent="Theme.Nari">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.Nari</item>
+    </style>
 </resources>

@@ -56,6 +56,11 @@ room = "2.6.1"
 secrets = "2.0.1"
 truth = "1.1.5"
 turbine = "1.0.0"
+kotlin1922 = "1.9.22"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+material = "1.11.0"
+kotlin19222 = "1.9.22"
 
 [libraries]
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
@@ -145,6 +150,9 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 work-testing = { group = "androidx.work", name = "work-testing", version = "2.9.0" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -179,3 +187,4 @@ nari-android-lint = { id = "nari.android.lint", version = "unspecified" }
 nari-android-room = { id = "nari.android.room", version = "unspecified" }
 nari-android-test = { id = "nari.android.test", version = "unspecified" }
 nari-jvm-library = { id = "nari.jvm.library", version = "unspecified" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin19222" }

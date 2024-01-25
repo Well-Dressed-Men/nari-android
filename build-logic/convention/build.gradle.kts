@@ -59,5 +59,9 @@ gradlePlugin {
             id = "nari.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = "nari.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }

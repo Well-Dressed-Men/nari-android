@@ -25,5 +25,12 @@ internal fun Project.configureAndroidCompose(
             add("implementation", libs.findLibrary("androidx-compose-material3").get())
             add("androidTestImplementation", platform(bom))
         }
+
+        testOptions {
+            unitTests {
+                // For Robolectric
+                isIncludeAndroidResources = true
+            }
+        }
     }
 }

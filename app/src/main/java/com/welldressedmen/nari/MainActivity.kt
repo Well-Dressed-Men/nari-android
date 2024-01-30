@@ -7,6 +7,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,10 +23,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.welldressedmen.nari.ui.theme.NariTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.welldressedmen.nari.MainActivityUiState.Loading
 import com.welldressedmen.nari.MainActivityUiState.Success
+import com.welldressedmen.nari.core.designsystem.theme.NariTheme
+import com.welldressedmen.nari.core.model.data.DarkThemeConfig
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -59,17 +61,57 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            NariTheme {
+            val darkTheme = shouldUseDarkTheme(uiState)
+
+            DisposableEffect(darkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT,
+                    ) { darkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(
+                        lightScrim,
+                        darkScrim,
+                    ) { darkTheme },
+                )
+                onDispose {}
+            }
+
+            val isLogin = isLogin(uiState)
+
+            NariTheme(
+                darkTheme = darkTheme
+            ) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("asd")
                 }
             }
         }
     }
+}
+
+@Composable
+private fun shouldUseDarkTheme(
+    uiState: MainActivityUiState,
+): Boolean = when (uiState) {
+    Loading -> isSystemInDarkTheme()
+    is Success -> when (uiState.userData.darkThemeConfig) {
+        DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        DarkThemeConfig.LIGHT -> false
+        DarkThemeConfig.DARK -> true
+    }
+}
+
+@Composable
+private fun isLogin(
+    uiState: MainActivityUiState,
+): Boolean = when (uiState) {
+    Loading -> false
+    is Success -> uiState.userData.isLogin
 }
 
 @Composable
@@ -80,10 +122,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NariTheme {
-        Greeting("Android")
-    }
-}
+private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)

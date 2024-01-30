@@ -1,24 +1,24 @@
 package com.welldressedmen.nari
 
-import android.service.autofill.UserData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.welldressedmen.nari.MainActivityUiState.Loading
+import com.welldressedmen.nari.MainActivityUiState.Success
+import com.welldressedmen.nari.core.data.repository.UserDataRepository
+import com.welldressedmen.nari.core.model.data.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import com.welldressedmen.nari.MainActivityUiState.Loading
-import com.welldressedmen.nari.MainActivityUiState.Success
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor() : ViewModel() {
-    private val testData: Flow<String> = flowOf("Hello World!")     // TODO: Replace with actual data
+class MainActivityViewModel @Inject constructor(
+    userDataRepository: UserDataRepository,
+) : ViewModel() {
 
-    val uiState: StateFlow<MainActivityUiState> = testData.map {
+    val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
         Success(it)
     }.stateIn(
         scope = viewModelScope,
@@ -29,5 +29,5 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
 
 sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
-    data class Success(val testData: String) : MainActivityUiState
+    data class Success(val userData: UserData) : MainActivityUiState
 }

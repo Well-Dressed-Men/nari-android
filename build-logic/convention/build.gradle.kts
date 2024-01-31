@@ -43,6 +43,10 @@ gradlePlugin {
             id = "nari.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidApplicationJacoco") {
+            id = "nari.android.application.jacoco"
+            implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
         register("androidLibraryCompose") {
             id = "nari.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
@@ -51,6 +55,18 @@ gradlePlugin {
             id = "nari.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidFeature") {
+            id = "nari.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+        register("androidLibraryJacoco") {
+            id = "nari.android.library.jacoco"
+            implementationClass = "AndroidLibraryJacocoConventionPlugin"
+        }
+        register("androidTest") {
+            id = "nari.android.test"
+            implementationClass = "AndroidTestConventionPlugin"
+        }
         register("androidHilt") {
             id = "nari.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
@@ -58,6 +74,10 @@ gradlePlugin {
         register("androidRoom") {
             id = "nari.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = "nari.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
         }
     }
 }

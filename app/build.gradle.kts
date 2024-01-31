@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.nari.android.application)
     alias(libs.plugins.nari.android.application.compose)
+    alias(libs.plugins.nari.android.application.jacoco)
     alias(libs.plugins.nari.android.hilt)
+    id("jacoco")
 }
 
 android {

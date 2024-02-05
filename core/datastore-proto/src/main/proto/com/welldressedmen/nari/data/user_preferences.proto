@@ -1,6 +1,9 @@
 syntax = "proto3";
 
 import "com/welldressedmen/nari/data/dark_theme_config.proto";
+import "com/welldressedmen/nari/data/gender.proto";
+import "com/welldressedmen/nari/data/survey_answer.proto";
+//import "com/welldressedmen/nari/data/fashion_style.proto";
 
 option java_package = "com.welldressedmen.nari.core.datastore";
 option java_multiple_files = true;
@@ -10,5 +13,16 @@ message UserPreferences {
 
     DarkThemeConfigProto dark_theme_config = 2;
 
-    // NEXT AVAILABLE ID: 3
+    GenderProto gender = 3;
+    SurveyAnswerProto survey_answer_cold = 4;
+    SurveyAnswerProto survey_answer_hot = 5;
+
+    float height = 6;
+    float weight = 7;
+
+    // The bool has no meaning, but proto3 doesn't have a Set type so this is the closest we can get to a Set.
+    map<string, bool> fashion_style_preferences = 8;
+
+
+    // NEXT AVAILABLE ID: 9
 }

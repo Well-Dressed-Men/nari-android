@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "com.welldressedmen.nari.core.datastore";
+option java_multiple_files = true;
+
+enum FashionStyleConfigProto {
+    FASHION_STYLE_CASUAL = 0;
+    FASHION_STYLE_MODERN = 1;
+    FASHION_STYLE_CUTE_LOVELY = 2;
+    FASHION_STYLE_CLASSIC_OFFICE = 3;
+    FASHION_STYLE_MINIMAL = 4;
+    FASHION_STYLE_KITSCH = 5;
+    FASHION_STYLE_STREET = 6;
+}

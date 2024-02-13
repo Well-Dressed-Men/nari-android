@@ -86,6 +86,7 @@ class NariPreferencesDataSource @Inject constructor(
         userPreference.updateData {
             it.copy {
                 this.surveyAnswerCold = when (surveyAnswer) {
+                    SurveyAnswer.NO_REPLY -> SurveyAnswerProto.SURVEY_ANSWER_NO_REPLY
                     SurveyAnswer.VERY_NOT -> SurveyAnswerProto.SURVEY_ANSWER_VERY_NOT
                     SurveyAnswer.NOT -> SurveyAnswerProto.SURVEY_ANSWER_NOT
                     SurveyAnswer.NEUTRAL -> SurveyAnswerProto.SURVEY_ANSWER_NEUTRAL
@@ -100,6 +101,7 @@ class NariPreferencesDataSource @Inject constructor(
         userPreference.updateData {
             it.copy {
                 this.surveyAnswerHot = when (surveyAnswer) {
+                    SurveyAnswer.NO_REPLY -> SurveyAnswerProto.SURVEY_ANSWER_NO_REPLY
                     SurveyAnswer.VERY_NOT -> SurveyAnswerProto.SURVEY_ANSWER_VERY_NOT
                     SurveyAnswer.NOT -> SurveyAnswerProto.SURVEY_ANSWER_NOT
                     SurveyAnswer.NEUTRAL -> SurveyAnswerProto.SURVEY_ANSWER_NEUTRAL
@@ -137,6 +139,7 @@ class NariPreferencesDataSource @Inject constructor(
 
     fun fromSurveyAnswerProtoToSurveyAnswer(proto: SurveyAnswerProto): SurveyAnswer =
         when (proto) {
+            SurveyAnswerProto.SURVEY_ANSWER_NO_REPLY -> SurveyAnswer.NO_REPLY
             SurveyAnswerProto.SURVEY_ANSWER_VERY_NOT -> SurveyAnswer.VERY_NOT
             SurveyAnswerProto.SURVEY_ANSWER_NOT -> SurveyAnswer.NOT
             SurveyAnswerProto.UNRECOGNIZED,

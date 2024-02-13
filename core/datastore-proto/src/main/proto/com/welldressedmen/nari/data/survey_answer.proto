@@ -4,9 +4,10 @@ option java_package = "com.welldressedmen.nari.core.datastore";
 option java_multiple_files = true;
 
 enum SurveyAnswerProto {
-    SURVEY_ANSWER_VERY_NOT= 0;
-    SURVEY_ANSWER_NOT = 1;
-    SURVEY_ANSWER_NEUTRAL = 2;
-    SURVEY_ANSWER_YES = 3;
-    SURVEY_ANSWER_VERY_YES = 4;
+    SURVEY_ANSWER_NO_REPLY = 0;
+    SURVEY_ANSWER_VERY_NOT= 1;
+    SURVEY_ANSWER_NOT = 2;
+    SURVEY_ANSWER_NEUTRAL = 3;
+    SURVEY_ANSWER_YES = 4;
+    SURVEY_ANSWER_VERY_YES = 5;
 }

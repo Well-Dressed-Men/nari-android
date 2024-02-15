@@ -25,3 +25,5 @@ include(":core:datastore")
 include(":core:datastore-proto")
 include(":core:model")
 include(":core:datastore-test")
+
+include(":feature:login")

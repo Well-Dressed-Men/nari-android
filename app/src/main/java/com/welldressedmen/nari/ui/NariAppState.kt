@@ -15,6 +15,7 @@ import com.welldressedmen.nari.core.data.util.NetworkMonitor
 import com.welldressedmen.nari.navigation.TopLevelDestination
 import com.welldressedmen.nari.navigation.TopLevelDestination.MAIN_CONTENT
 import com.welldressedmen.nari.navigation.TopLevelDestination.USER_DATA
+import com.welldressedmen.nari.navigation.USER_DATA_ROUTE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -47,8 +48,8 @@ class NariAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            "USER_DATA" -> USER_DATA
-            "MAIN_CONTENT" -> MAIN_CONTENT
+            USER_DATA_ROUTE -> USER_DATA
+            "MAIN_CONTENT_ROUTE" -> MAIN_CONTENT
             else -> null
         }
 

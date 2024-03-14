@@ -1,34 +1,39 @@
 package com.welldressedmen.nari
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.welldressedmen.nari.ui.theme.NariTheme
 import com.welldressedmen.nari.MainActivityUiState.Loading
 import com.welldressedmen.nari.MainActivityUiState.Success
+import com.welldressedmen.nari.core.data.util.NetworkMonitor
+import com.welldressedmen.nari.core.designsystem.theme.NariTheme
 import com.welldressedmen.nari.core.model.data.DarkThemeConfig
+import com.welldressedmen.nari.ui.NariApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -53,18 +58,31 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        enableEdgeToEdge()
+
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
 
-            NariTheme {
-                val isLogin = shouldShowLogin(uiState)
+            DisposableEffect(darkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT,
+                    ) { darkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(
+                        Color.argb(0xe6, 0xFF, 0xFF, 0xFF),
+                        Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+                    ) { darkTheme },
+                )
+                onDispose {}
+            }
 
-                if (isLogin) {
-
-                }
-                else {
-
-                }
+            NariTheme(
+                darkTheme = darkTheme,
+            ) {
+                NariApp(
+                    networkMonitor = networkMonitor
+                )
             }
         }
     }
@@ -78,10 +96,4 @@ private fun shouldUseDarkTheme(uiState: MainActivityUiState): Boolean = when (ui
         DarkThemeConfig.DARK -> true
         DarkThemeConfig.LIGHT -> false
     }
-}
-
-@Composable
-private fun shouldShowLogin(uiState: MainActivityUiState): Boolean = when (uiState) {
-    Loading -> false
-    is Success -> uiState.userData.isLogin
 }
